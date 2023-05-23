@@ -22,7 +22,7 @@ const arrowLeft = document.querySelector(".arrow_left");
 const arrowRight = document.querySelector(".arrow_right");
 const dotsContainer = document.querySelector(".dots");
 let currentIndex = 0;
-const interval = 3000;
+const interval = 6000;
 
 function showSlide(index) {
 	// Update image source
@@ -41,7 +41,7 @@ function showSlide(index) {
 	// Update tagline
 	const tagline = banner.querySelector("p");
 	tagline.innerHTML = slides[index].tagLine;
-	
+
 	// Update active dot
 	const dots = dotsContainer.querySelectorAll(".dot");
 	dots.forEach((dot, dotIndex) => {
@@ -52,6 +52,7 @@ function showSlide(index) {
 		}
 	});
 }
+
 
 arrowLeft.addEventListener("click", function () {
 	currentIndex--;
@@ -78,6 +79,16 @@ slides.forEach(() => {
 	dotsContainer.appendChild(dotElement);
 });
 
+//Add an event listen on each dots, changing the current index when clicked on
+const dots = dotsContainer.querySelectorAll(".dot");
+dots.forEach((dot, dotIndex) => {
+	dot.addEventListener("click", function () {
+		currentIndex = dotIndex;
+		showSlide(currentIndex);
+		console.log("Dotclick - Current index :", currentIndex, "Dot Index :", dotIndex)
+	});
+});
+
 //Set the automatic run of the slide function
 setInterval(function () {
 	currentIndex++;
@@ -85,7 +96,7 @@ setInterval(function () {
 		currentIndex = 0;
 	}
 	showSlide(currentIndex);
-	console.log('Auto next');
+	console.log("Auto-next - Current index:", currentIndex);
 }, interval)
 
 // Show the initial slide
